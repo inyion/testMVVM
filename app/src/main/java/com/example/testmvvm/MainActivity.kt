@@ -1,5 +1,6 @@
 package com.example.testmvvm
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
@@ -18,6 +19,16 @@ class MainActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         binding.viewModel = MainViewModel()
         binding.viewModel?.init()
+
+        binding.subActivity.setOnClickListener{
+
+            val intent = Intent(this@MainActivity, SubActivity::class.java)
+            if(binding.viewModel?.mainTextData?.value != null) {
+                val stringArr = binding.viewModel?.mainTextData?.value!!.split(" ")
+                intent.putExtra("name", "sub " + stringArr[stringArr.lastIndex])
+                startActivity(intent)
+            }
+        }
     }
 
     override fun onDestroy() {
