@@ -2,6 +2,12 @@
 <layout
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.testmvvm.viewmodel.MainViewModel"/>
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -11,11 +17,40 @@
             android:id="@+id/text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hello World!"
+            android:text="@{viewModel.mainTextData}"
+            android:textColor="#000000"
+            android:textSize="26sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+        <Button
+            android:id="@+id/btn1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Android"
+            app:layout_constraintTop_toBottomOf="@id/text_view"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="20dp"
+            android:onClick="@{()->viewModel.userViewModel1.hello()}"/>
+        <Button
+            android:id="@+id/btn2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kotlin"
+            app:layout_constraintTop_toBottomOf="@id/text_view"
+            app:layout_constraintStart_toEndOf="@id/btn1"
+            android:layout_marginStart="20dp"
+            android:onClick="@{()->viewModel.userViewModel2.hello()}"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MVVM"
+            app:layout_constraintTop_toBottomOf="@id/text_view"
+            app:layout_constraintStart_toEndOf="@id/btn2"
+            android:layout_marginStart="20dp"
+            android:onClick="@{()->viewModel.userViewModel3.hello()}"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
