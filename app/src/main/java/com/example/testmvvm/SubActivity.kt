@@ -21,4 +21,9 @@ class SubActivity : AppCompatActivity() {
         binding.viewModel = UserViewModel()
         binding.viewModel?.init(intent.getStringExtra("name"))
     }
+
+    override fun onDestroy() {
+        binding.viewModel?.onDispose()
+        super.onDestroy()
+    }
 }
