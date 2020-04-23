@@ -1,11 +1,13 @@
 package com.example.testmvvm.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.testmvvm.RxEvent
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 
 class MainViewModel: ViewModel() {
     private val _mainTextData = MutableLiveData<String>()
@@ -15,10 +17,21 @@ class MainViewModel: ViewModel() {
     val userViewModel3 = UserViewModel()
 
     fun init() {
+
+
         addDisposable(
             RxEvent.bus
+                .observeOn(Schedulers.newThread())
                 .subscribe { str ->
-                    _mainTextData.value = "hello $str"
+                    try {
+                        Thread.sleep(3000)
+                    } catch (e: Exception) {
+
+                    }
+                    Log.i("test", _mainTextData.toString())
+                    _mainTextData.postValue("hello $str")
+                    Log.i("test", _mainTextData.hasActiveObservers().toString())
+
                 }
         )
         userViewModel1.init("Android")
